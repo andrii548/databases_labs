@@ -1,0 +1,724 @@
+{
+  "info": {
+    "name": "Flightradar RESTful API (Full CRUD 13 Tables)",
+    "_postman_id": "c1f7a8b9-5034-4b55-a50d-856193791244",
+    "description": "Повна колекція HTTP-запитів для лабораторної роботи №4 (Flightradar DB API): усі 13 таблиць з повним набором CRUD операцій (GET, POST, PUT, DELETE), коректною обробкою складених ключів та виводом даних зі стикувальних таблиць M:M (для кожного суб'єкта всі приєднані до нього суб'єкти).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Root",
+      "item": [
+        {
+          "name": "GET API Index",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/", "host": ["{{base_url}}"], "path": [""] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Country",
+      "item": [
+        {
+          "name": "GET All Countries",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/countries", "host": ["{{base_url}}"], "path": ["api", "countries"] }
+          }
+        },
+        {
+          "name": "GET Country by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/countries/1", "host": ["{{base_url}}"], "path": ["api", "countries", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Country",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Canada\"\n}" },
+            "url": { "raw": "{{base_url}}/api/countries", "host": ["{{base_url}}"], "path": ["api", "countries"] }
+          }
+        },
+        {
+          "name": "PUT Update Country",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Canada (Updated)\"\n}" },
+            "url": { "raw": "{{base_url}}/api/countries/11", "host": ["{{base_url}}"], "path": ["api", "countries", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Country",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/countries/11", "host": ["{{base_url}}"], "path": ["api", "countries", "11"] }
+          }
+        },
+        {
+          "name": "SPECIAL 1:M - GET Airports by Country",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/countries/1/airports", "host": ["{{base_url}}"], "path": ["api", "countries", "1", "airports"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Type",
+      "item": [
+        {
+          "name": "GET All Types",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/types", "host": ["{{base_url}}"], "path": ["api", "types"] }
+          }
+        },
+        {
+          "name": "GET Type by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/types/1", "host": ["{{base_url}}"], "path": ["api", "types", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Type",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Supersonic Jet\"\n}" },
+            "url": { "raw": "{{base_url}}/api/types", "host": ["{{base_url}}"], "path": ["api", "types"] }
+          }
+        },
+        {
+          "name": "PUT Update Type",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Supersonic Jet (Updated)\"\n}" },
+            "url": { "raw": "{{base_url}}/api/types/11", "host": ["{{base_url}}"], "path": ["api", "types", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Type",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/types/11", "host": ["{{base_url}}"], "path": ["api", "types", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Registration Info",
+      "item": [
+        {
+          "name": "GET All Registration Infos",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/registration-infos", "host": ["{{base_url}}"], "path": ["api", "registration-infos"] }
+          }
+        },
+        {
+          "name": "GET Registration Info by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/registration-infos/1", "host": ["{{base_url}}"], "path": ["api", "registration-infos", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Registration Info",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serial_number\": 999,\n  \"manufacturing_date\": \"2023-01-15\",\n  \"registration_number\": \"UR-TEST\",\n  \"capacity_passengers\": 220,\n  \"max_speed\": 890,\n  \"fuel_capacity\": 26000,\n  \"last_maintenance_date\": \"2026-10-01\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/registration-infos", "host": ["{{base_url}}"], "path": ["api", "registration-infos"] }
+          }
+        },
+        {
+          "name": "PUT Update Registration Info",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"capacity_passengers\": 230,\n  \"max_speed\": 900\n}" },
+            "url": { "raw": "{{base_url}}/api/registration-infos/11", "host": ["{{base_url}}"], "path": ["api", "registration-infos", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Registration Info",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/registration-infos/11", "host": ["{{base_url}}"], "path": ["api", "registration-infos", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Role",
+      "item": [
+        {
+          "name": "GET All Roles",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/roles", "host": ["{{base_url}}"], "path": ["api", "roles"] }
+          }
+        },
+        {
+          "name": "GET Role by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/roles/1", "host": ["{{base_url}}"], "path": ["api", "roles", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Role",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Flight Attendant Trainee\",\n  \"role_description\": \"Assists chief attendant in safety measures\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/roles", "host": ["{{base_url}}"], "path": ["api", "roles"] }
+          }
+        },
+        {
+          "name": "PUT Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"role_description\": \"Junior cabin crew member\"\n}" },
+            "url": { "raw": "{{base_url}}/api/roles/11", "host": ["{{base_url}}"], "path": ["api", "roles", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Role",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/roles/11", "host": ["{{base_url}}"], "path": ["api", "roles", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Flight Route",
+      "item": [
+        {
+          "name": "GET All Flight Routes",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-routes", "host": ["{{base_url}}"], "path": ["api", "flight-routes"] }
+          }
+        },
+        {
+          "name": "GET Flight Route by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-routes/1", "host": ["{{base_url}}"], "path": ["api", "flight-routes", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Flight Route",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"distance_km\": 850,\n  \"route_description\": \"Kyiv to Krakow\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/flight-routes", "host": ["{{base_url}}"], "path": ["api", "flight-routes"] }
+          }
+        },
+        {
+          "name": "PUT Update Flight Route",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"distance_km\": 870\n}" },
+            "url": { "raw": "{{base_url}}/api/flight-routes/11", "host": ["{{base_url}}"], "path": ["api", "flight-routes", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Flight Route",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/flight-routes/11", "host": ["{{base_url}}"], "path": ["api", "flight-routes", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Waypoint",
+      "item": [
+        {
+          "name": "GET All Waypoints",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/waypoints", "host": ["{{base_url}}"], "path": ["api", "waypoints"] }
+          }
+        },
+        {
+          "name": "GET Waypoint by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/waypoints/1", "host": ["{{base_url}}"], "path": ["api", "waypoints", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Waypoint",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"WP-LV\",\n  \"latitude\": 49.8397,\n  \"longitude\": 24.0297,\n  \"altitude_m\": 10100\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/waypoints", "host": ["{{base_url}}"], "path": ["api", "waypoints"] }
+          }
+        },
+        {
+          "name": "PUT Update Waypoint",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"altitude_m\": 10300\n}" },
+            "url": { "raw": "{{base_url}}/api/waypoints/11", "host": ["{{base_url}}"], "path": ["api", "waypoints", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Waypoint",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/waypoints/11", "host": ["{{base_url}}"], "path": ["api", "waypoints", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Airport",
+      "item": [
+        {
+          "name": "GET All Airports",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/airports", "host": ["{{base_url}}"], "path": ["api", "airports"] }
+          }
+        },
+        {
+          "name": "GET Airport by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/airports/1", "host": ["{{base_url}}"], "path": ["api", "airports", "1"] }
+          }
+        },
+        {
+          "name": "GET Airports by Country FK",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/airports/by-country/1", "host": ["{{base_url}}"], "path": ["api", "airports", "by-country", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Airport",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lviv Danylo Halytskyi International Airport\",\n  \"country_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/airports", "host": ["{{base_url}}"], "path": ["api", "airports"] }
+          }
+        },
+        {
+          "name": "PUT Update Airport",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Lviv International Airport\"\n}" },
+            "url": { "raw": "{{base_url}}/api/airports/11", "host": ["{{base_url}}"], "path": ["api", "airports", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Airport",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/airports/11", "host": ["{{base_url}}"], "path": ["api", "airports", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Airline",
+      "item": [
+        {
+          "name": "GET All Airlines",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/airlines", "host": ["{{base_url}}"], "path": ["api", "airlines"] }
+          }
+        },
+        {
+          "name": "GET Airline by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/airlines/1", "host": ["{{base_url}}"], "path": ["api", "airlines", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Airline",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Wizz Air\",\n  \"website\": \"https://wizzair.com\",\n  \"airline_code\": \"WZZ\",\n  \"headquarters_location\": \"Budapest\",\n  \"airport_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/airlines", "host": ["{{base_url}}"], "path": ["api", "airlines"] }
+          }
+        },
+        {
+          "name": "PUT Update Airline",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"website\": \"https://wizzair.com/en-ua\"\n}" },
+            "url": { "raw": "{{base_url}}/api/airlines/11", "host": ["{{base_url}}"], "path": ["api", "airlines", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Airline",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/airlines/11", "host": ["{{base_url}}"], "path": ["api", "airlines", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Person",
+      "item": [
+        {
+          "name": "GET All Persons",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/persons", "host": ["{{base_url}}"], "path": ["api", "persons"] }
+          }
+        },
+        {
+          "name": "GET Person by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/persons/1", "host": ["{{base_url}}"], "path": ["api", "persons", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Person",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Oleksandr\",\n  \"surname\": \"Zinchenko\",\n  \"standing\": 5,\n  \"employee_id\": 2001,\n  \"role_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/persons", "host": ["{{base_url}}"], "path": ["api", "persons"] }
+          }
+        },
+        {
+          "name": "PUT Update Person",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"standing\": 6\n}" },
+            "url": { "raw": "{{base_url}}/api/persons/11", "host": ["{{base_url}}"], "path": ["api", "persons", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Person",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/persons/11", "host": ["{{base_url}}"], "path": ["api", "persons", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Aircraft",
+      "item": [
+        {
+          "name": "GET All Aircrafts",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/aircrafts", "host": ["{{base_url}}"], "path": ["api", "aircrafts"] }
+          }
+        },
+        {
+          "name": "SPECIAL M:M - GET Each Aircraft With All Its Crew",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/aircrafts/with-crew", "host": ["{{base_url}}"], "path": ["api", "aircrafts", "with-crew"] }
+          }
+        },
+        {
+          "name": "GET Aircraft by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/aircrafts/1", "host": ["{{base_url}}"], "path": ["api", "aircrafts", "1"] }
+          }
+        },
+        {
+          "name": "SPECIAL M:M - GET Crew Members of Specific Aircraft",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/aircrafts/1/crew", "host": ["{{base_url}}"], "path": ["api", "aircrafts", "1", "crew"] }
+          }
+        },
+        {
+          "name": "POST Create Aircraft",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Airbus A321neo\",\n  \"total_flight\": 350,\n  \"type_id\": 1,\n  \"airline_id\": 1,\n  \"registration_info_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/aircrafts", "host": ["{{base_url}}"], "path": ["api", "aircrafts"] }
+          }
+        },
+        {
+          "name": "PUT Update Aircraft",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"total_flight\": 400\n}" },
+            "url": { "raw": "{{base_url}}/api/aircrafts/11", "host": ["{{base_url}}"], "path": ["api", "aircrafts", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Aircraft",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/aircrafts/11", "host": ["{{base_url}}"], "path": ["api", "aircrafts", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Flight",
+      "item": [
+        {
+          "name": "GET All Flights",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flights", "host": ["{{base_url}}"], "path": ["api", "flights"] }
+          }
+        },
+        {
+          "name": "GET Flight by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flights/1", "host": ["{{base_url}}"], "path": ["api", "flights", "1"] }
+          }
+        },
+        {
+          "name": "POST Create Flight",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aircraft_id\": 1,\n  \"departure_datetime\": \"2026-12-10 08:30:00\",\n  \"arrival_datetime\": \"2026-12-10 10:45:00\",\n  \"status\": \"will happen\",\n  \"current_speed\": 0,\n  \"flight_route_id\": 1\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/flights", "host": ["{{base_url}}"], "path": ["api", "flights"] }
+          }
+        },
+        {
+          "name": "PUT Update Flight",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"is happening\",\n  \"current_speed\": 820\n}" },
+            "url": { "raw": "{{base_url}}/api/flights/11", "host": ["{{base_url}}"], "path": ["api", "flights", "11"] }
+          }
+        },
+        {
+          "name": "DELETE Flight",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/flights/11", "host": ["{{base_url}}"], "path": ["api", "flights", "11"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Crew (Composite PK & M:M)",
+      "item": [
+        {
+          "name": "SPECIAL M:M - GET Each Aircraft With All Its Crew",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/crews/grouped-by-aircraft", "host": ["{{base_url}}"], "path": ["api", "crews", "grouped-by-aircraft"] }
+          }
+        },
+        {
+          "name": "SPECIAL M:M - GET Each Person With All Their Aircrafts",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/crews/grouped-by-person", "host": ["{{base_url}}"], "path": ["api", "crews", "grouped-by-person"] }
+          }
+        },
+        {
+          "name": "GET All Crews",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/crews", "host": ["{{base_url}}"], "path": ["api", "crews"] }
+          }
+        },
+        {
+          "name": "GET Crew by Composite PK (1/1)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/crews/1/1", "host": ["{{base_url}}"], "path": ["api", "crews", "1", "1"] }
+          }
+        },
+        {
+          "name": "GET Crew by Single ID (1)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/crews/1", "host": ["{{base_url}}"], "path": ["api", "crews", "1"] }
+          }
+        },
+        {
+          "name": "GET Crew with Query Params (?person_id=1&aircraft_id=1)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/crews?person_id=1&aircraft_id=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "crews"],
+              "query": [
+                { "key": "person_id", "value": "1" },
+                { "key": "aircraft_id", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Assign Person to Aircraft",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"person_id\": 1,\n  \"aircraft_id\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/crews", "host": ["{{base_url}}"], "path": ["api", "crews"] }
+          }
+        },
+        {
+          "name": "PUT Update Crew Assignment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"aircraft_id\": 3\n}" },
+            "url": { "raw": "{{base_url}}/api/crews/1/2", "host": ["{{base_url}}"], "path": ["api", "crews", "1", "2"] }
+          }
+        },
+        {
+          "name": "DELETE Crew Assignment",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/crews/1/3", "host": ["{{base_url}}"], "path": ["api", "crews", "1", "3"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. Flight Waypoint (Composite PK & M:M)",
+      "item": [
+        {
+          "name": "SPECIAL M:M - GET Each Flight With All Its Waypoints",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-waypoints/grouped-by-flight", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints", "grouped-by-flight"] }
+          }
+        },
+        {
+          "name": "GET All Flight Waypoints",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-waypoints", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints"] }
+          }
+        },
+        {
+          "name": "GET Flight Waypoint by Composite PK (1/1)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-waypoints/1/1", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints", "1", "1"] }
+          }
+        },
+        {
+          "name": "GET Waypoints by Flight ID (1)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/flight-waypoints/1", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints", "1"] }
+          }
+        },
+        {
+          "name": "GET Flight Waypoint with Query Params (?flight_id=1&waypoint_id=1)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/flight-waypoints?flight_id=1&waypoint_id=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "flight-waypoints"],
+              "query": [
+                { "key": "flight_id", "value": "1" },
+                { "key": "waypoint_id", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Existing Waypoint Order",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"waypoint_order\": 5\n}" },
+            "url": { "raw": "{{base_url}}/api/flight-waypoints/1/1", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints", "1", "1"] }
+          }
+        },
+        {
+          "name": "POST Assign New Waypoint to Flight",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"flight_id\": 1,\n  \"waypoint_id\": 2,\n  \"waypoint_order\": 2\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/flight-waypoints", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints"] }
+          }
+        },
+        {
+          "name": "DELETE Flight Waypoint Assignment",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/flight-waypoints/1/2", "host": ["{{base_url}}"], "path": ["api", "flight-waypoints", "1", "2"] }
+          }
+        }
+      ]
+    }
+  ]
+}

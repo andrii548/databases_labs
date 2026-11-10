@@ -1,2 +1,28 @@
-# databases_labs
-Laboratory works from databases subject
+# Flightradar RESTful API 
+### Лабораторна робота №4 
+### З дисципліни:"Організація баз даних та знань"
+### Виконав студент групи ІР-21 
+### М'якуш Андрій
+
+Цей проєкт є бекенд RESTful API для бази данних **"Flightradar"**, створеної у попередніх лабораторних розроблений із дотриманням багаторівневої архітектури (Layered Architecture): **Domain**, **DAO**, **Service**, **Controller**, **Route**.
+
+---
+##  Встановлення та запуск
+
+### 1. Встановлення залежностей
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Налаштування бази даних
+Відредагуйте файл `app/config/app.yml`:(введіть пароль бази даних)
+```yaml
+  password: "your_mysql_password"
+```
+
+### 3. Запуск сервера
+```bash
+python app.py
+```
+Сервер запуститься за адресою: `http://127.0.0.1:5000/`.
+
