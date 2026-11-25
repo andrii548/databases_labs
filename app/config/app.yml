@@ -1,0 +1,12 @@
+database:
+  user: root
+  password: "test"
+  host: localhost
+  port: 3306
+  name: flightradar_db
+
+server:
+  host: 127.0.0.1
+  port: 5000
+  debug: true
+
